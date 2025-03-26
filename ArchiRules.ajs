@@ -1,0 +1,132 @@
+﻿const BASEPATH = Java.type("java.lang.System").getenv("USERPROFILE") + "\\Downloads\\ArchRules\\"; // <-- pas dit pad aan
+
+console.clear();
+console.show();
+
+
+//
+// Step 1. Export to RDF
+//
+
+const RDF = [];
+const ns = {
+    archimate: "http://www.opengroup.org/xsd/archimate/3.0/#",
+    model: "http://example.org/model#",
+    rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+};
+
+// Prefix declarations
+RDF.push(`@prefix archimate: <${ns.archimate}> .`);
+RDF.push(`@prefix model: <${ns.model}> .`);
+RDF.push(`@prefix rdfs: <${ns.rdfs}> .\n`);
+
+function toQName(id) {
+    return `model:${id}`;
+}
+
+// Transforms Archi internal types to ArchiMate 3.0 spec
+function normalizePredicate(rawType) {
+    if (rawType.endsWith("-relationship")) {
+        return rawType.replace("-relationship", "")
+                      .split("-")
+                      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+                      .join("");
+    } else {
+        return rawType.split("-")
+                      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+                      .join("");
+    }
+}
+
+// Export elements
+$('element').each(e => {
+    const subject = toQName(e.id);
+    const predicate = `a archimate:${normalizePredicate(e.type)}`;
+    RDF.push(`${subject} ${predicate} .`);
+});
+
+// Export relationships as direct triples
+$('relationship').each(r => {
+    const source = toQName(r.source.id);
+    const target = toQName(r.target.id);
+    const predicate = `archimate:${normalizePredicate(r.type)}`;
+    RDF.push(`${source} ${predicate} ${target} .`);
+});
+
+// Output to file
+const rdfPath = BASEPATH + "output\\model.ttl";
+$.fs.writeFile(rdfPath, RDF.join('\n'), 'UTF8');
+console.log("RDF export complete:", rdfPath);
+
+
+//
+// Step 2. Validate with SPARQL
+//
+
+const File = Java.type("java.io.File");
+const ProcessBuilder = Java.type("java.lang.ProcessBuilder");
+const BufferedReader = Java.type("java.io.BufferedReader");
+const InputStreamReader = Java.type("java.io.InputStreamReader");
+
+// Make a ProcessBuilder
+const pb = new ProcessBuilder("cmd.exe", "/c", BASEPATH + "validate.cmd");
+pb.directory(new File(BASEPATH)); // werkmap
+
+try {
+    const process = pb.start();
+
+    // Empty stdout to prevent hanging
+    const reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    let line = null;
+    while ((line = reader.readLine()) != null) {
+        console.log(line);
+    }
+
+    // Wait till done
+    const exitCode = process.waitFor();
+    console.log("Batch script completed with exit code " + exitCode);
+
+} catch (e) {
+    console.log("Failed to run validate.cmd: " + e);
+}
+
+
+//
+// Step 3. Report validation results
+//
+
+console.log();
+console.log("Validation result:");
+
+load(BASEPATH + "output\\validationResults.js"); // defines `validationResults`
+
+Object.entries(validationResults).forEach(([rule, data]) => {
+    const bindings = data.results.bindings;
+    const count = bindings.length;
+
+    if (count === 0) {
+        console.log(`✔ 0 elements violate rule ${rule}`);
+        return;
+    }
+
+    const ids = bindings.map(b => {
+        // Take the first variable as 'main element'
+        const firstVar = data.head.vars[0];
+        const uri = b[firstVar].value; // e.g. "http://example.org/model#id-abc123"
+        return uri.split("#").pop(); // extract "id-abc123"
+    });
+
+    const names = ids.map(id => {
+        const el = $('#' + id).first();
+        return el ? el.name : `[${id}]`;
+    });
+
+    if (count <= 100) {
+        console.log(`⚠ ${count} elements violate rule ${rule}: ${names.join(", ")}`);
+    } else {
+        console.log(`⚠ ${count} elements violate rule ${rule}`);
+    }
+});
+
+console.log();
+console.log("Validation complete.");
