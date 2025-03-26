@@ -49,7 +49,7 @@ ArchiRules\
 ├── validate.ajs     # jArchi script
 ├── validate.cmd     # Batch file to run all SPARQL rules
 ├── rules\           # SPARQL rules (e.g. C1.rq, C2.rq, ...)
-├── tools\           
+├── tools\           # (created by the user in step 2)
 │   ├── jdk\         # Portable JDK
 │   └── jena\        # Apache Jena
 └── output\          # RDF export and validation results (created after first run)
