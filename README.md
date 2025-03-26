@@ -1,4 +1,5 @@
 
+
 # ArchiRules
 Lightweight SPARQL-based model validation for [Archi](https://www.archimatetool.com/). It exports your model as RDF, runs SPARQL-based validation, and reports violations directly in the jArchi console.
 
@@ -38,15 +39,14 @@ SELECT ?x WHERE {
 ```
 
 ## 📦 Installation (Windows)
-All files should be placed in the following folder on your system:
+All files should be placed in a folder on your system, for example:
 ```
-C:\Users\<YourName>\Downloads\ArchiRules\
+C:\Users\YourName\Downloads\ArchiRules\
 ```
-
-Folder contents after complete installation:
+Folder contents after installation:
 ```
 ArchiRules\
-├── ArchiRules.ajs   # jArchi script
+├── validate.ajs     # jArchi script
 ├── validate.cmd     # Batch file to run all SPARQL rules
 ├── rules\           # SPARQL rules (e.g. C1.rq, C2.rq, ...)
 ├── tools\           
@@ -56,18 +56,14 @@ ArchiRules\
 ```
 
 ### 1. jArchi script installation
-To use the `ArchiRules.ajs` script inside Archi:
+To use the `validate.ajs` script inside Archi:
 1.  Open Archi
-2.  Go to `Scripts → Scripts Manager → New Archi Script`
-3.  Give the new script a name, e.g. `ArchiRules`
-4.  Copy-paste the contents of the provided `ArchiRules.ajs` file into the editor
-5.  Save
-
-> ⚠ **If you use a different location than the default folder**, update the first line of `ArchiRules.ajs` to match your path:
-> 
-> ```
-> const BASEPATH = "C:\\Users\\YourName\\CustomFolder\\ArchiRules\\";
-> ```
+2.  Go to `Scripts → Scripts Manager`, and click **New Archi Script**
+3.  Name the new script `ArchiRules`
+4.  In the script editor, paste the following line (adjust the path if needed):
+	```javascript
+      load("C:\\Users\\YourName\\Downloads\\ArchiRules\\validate.ajs");
+5.  Save the script
 
 ### 2. JDK and Jena setup
 Manually download and extract the following tools:
