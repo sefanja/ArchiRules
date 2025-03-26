@@ -1,4 +1,4 @@
-# An element may not be composed (directly or indirectly) of itself. In other words, the composition relationship must form a strict hierarchy without cycles.
+# An element may not be composed (directly or indirectly) of itself.
 
 PREFIX archimate: <http://www.opengroup.org/xsd/archimate/3.0/#>
 
