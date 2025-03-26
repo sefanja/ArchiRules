@@ -5,7 +5,7 @@ Lightweight SPARQL-based model validation for [Archi](https://www.archimatetool.
 -   Validate Archi models directly from inside Archi
 -   Define rules declaratively in SPARQL
 -   Feedback directly in the jArchi console
--   Works without admin rights
+-   Works on Windows without admin rights
 -   Requires the [jArchi plugin](https://www.archimatetool.com/plugins/)
 
 ## Typical usage
@@ -29,6 +29,12 @@ The script will now be available in the Scripts window and can be run on any ope
 Alternatively, you can manually copy `ArchiRules.ajs` to the jArchi scripts folder.
 
 ## Project structure
+All files should be placed in a folder named `ArchiRules` inside your **Downloads folder**. For example:
+```
+C:\Users\<YourName>\Downloads\ArchiRules\
+```
+
+Folder contents:
 ```
 ArchiRules\
 ├── ArchiRules.ajs   # jArchi script
@@ -43,7 +49,7 @@ ArchiRules\
 ## Example console output
 ```
 ✔ 0 elements violate rule C1
-⚠ 2 elements violate rule C2: [Customer Support], [Order Fulfilment]
+⚠ 2 elements violate rule C2: Customer Support; Order Fulfilment
 ⚠ 233 elements violate rule C3
 ```
 
