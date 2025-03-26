@@ -1,6 +1,5 @@
 # ArchiRules
-Lightweight SPARQL-based model validation for [Archi](https://www.archimatetool.com/).  
-It exports your model as RDF, runs SPARQL-based validation, and reports violations directly in the jArchi console.
+Lightweight SPARQL-based model validation for [Archi](https://www.archimatetool.com/). It exports your model as RDF, runs SPARQL-based validation, and reports violations directly in the jArchi console.
 
 ## Features
 -   Validate Archi models directly from inside Archi
