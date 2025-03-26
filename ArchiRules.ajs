@@ -1,4 +1,4 @@
-﻿const BASEPATH = Java.type("java.lang.System").getenv("USERPROFILE") + "\\Downloads\\ArchRules\\"; // <-- pas dit pad aan
+﻿const BASEPATH = Java.type("java.lang.System").getenv("USERPROFILE") + "\\Downloads\\ArchiRules\\"; // <-- change this path if necessary
 
 console.clear();
 console.show();
@@ -122,7 +122,7 @@ Object.entries(validationResults).forEach(([rule, data]) => {
     });
 
     if (count <= 100) {
-        console.log(`⚠ ${count} elements violate rule ${rule}: ${names.join(", ")}`);
+        console.log(`⚠ ${count} elements violate rule ${rule}: ${names.join("; ")}`);
     } else {
         console.log(`⚠ ${count} elements violate rule ${rule}`);
     }
