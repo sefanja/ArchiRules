@@ -57,6 +57,7 @@ If there are 100 or fewer violations, element names are shown. If more, only the
 
 ## SPARQL rule example
 **C2.rq**: detect composition cycles
+
 _An element may not be composed (directly or indirectly) of itself. In other words, the composition relationship must form a strict hierarchy without cycles._
 
 ```sparql
@@ -72,11 +73,11 @@ ArchiRules requires no installation, but you must manually download and extract:
 -   **Java JDK (portable):**  [Java Downloads](https://www.oracle.com/java/technologies/downloads/) (x64 Compressed Archive)
 -   **Apache Jena:**  [Apache Jena Downloads](https://jena.apache.org/download/) (Apache Jena Commands)
 
-Place both in the `tools/` directory as follows:
+Place both in the `tools` directory as follows:
 ```
-tools/
-├── jdk/              # Extracted JDK folder
-└── jena/             # Extracted Apache Jena distribution
+tools\
+├── jdk\              # Extracted JDK folder
+└── jena\             # Extracted Apache Jena distribution
 ```
 
 No admin rights are required. The batch script will use the local copies.
