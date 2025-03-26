@@ -1,3 +1,4 @@
+
 # ArchiRules
 Lightweight SPARQL-based model validation for [Archi](https://www.archimatetool.com/). It exports your model as RDF, runs SPARQL-based validation, and reports violations directly in the jArchi console.
 
@@ -15,36 +16,6 @@ Lightweight SPARQL-based model validation for [Archi](https://www.archimatetool.
     -   Executes SPARQL rules in the `rules` folder
     -   Reports violations in the jArchi console
 4.  Review validation results in the console
-
-## Script installation
-To use the `ArchRules.ajs` script inside Archi:
-1.  Open Archi
-2.  Go to `Scripts → Scripts Manager → New Archi Script`
-3.  Give the new script a name, e.g. `ArchiRules`
-4.  Replace the contents with the contents of the provided `ArchiRules.ajs` file (copy-paste)
-5.  Save the script
-
-The script will now be available in the Scripts window and can be run on any open model.
-
-Alternatively, you can manually copy `ArchiRules.ajs` to the jArchi scripts folder.
-
-## Project structure
-All files should be placed in a folder named `ArchiRules` inside your **Downloads folder**. For example:
-```
-C:\Users\<YourName>\Downloads\ArchiRules\
-```
-
-Folder contents:
-```
-ArchiRules\
-├── ArchiRules.ajs   # jArchi script
-├── validate.cmd     # Batch file to run all SPARQL rules
-├── rules\           # SPARQL rules (e.g. C1.rq, C2.rq, ...)
-├── output\          # RDF export and validation results
-└── tools\               
-  ├── jdk\           # Portable JDK
-  └── jena\          # Apache Jena
-```
 
 ## Example console output
 ```
@@ -68,19 +39,44 @@ SELECT ?x WHERE {
 }
 ```
 
-## Setup requirements
-ArchiRules requires no installation, but you must manually download and extract:
+## Installation (Windows)
+All files should be placed in the following folder on your system:
+```
+C:\Users\<YourName>\Downloads\ArchiRules\
+```
+
+Folder contents after complete installation:
+```
+ArchiRules\
+├── ArchiRules.ajs   # jArchi script
+├── validate.cmd     # Batch file to run all SPARQL rules
+├── rules\           # SPARQL rules (e.g. C1.rq, C2.rq, ...)
+├── tools\           
+│   ├── jdk\         # Portable JDK
+│   └── jena\        # Apache Jena
+└── output\          # RDF export and validation results (created after first run)
+```
+
+### 1. jArchi script installation
+To use the `ArchiRules.ajs` script inside Archi:
+1.  Open Archi
+2.  Go to `Scripts → Scripts Manager → New Archi Script`
+3.  Give the new script a name, e.g. `ArchiRules`
+4.  Copy-paste the contents of the provided `ArchiRules.ajs` file into the editor
+5.  Save
+
+> ⚠ **If you use a different location than the default folder**, update the first line of `ArchiRules.ajs` to match your path:
+> 
+> ```
+> const BASEFOLDER = "C:\\Users\\YourName\\CustomFolder\\ArchiRules\\";
+> ```
+
+### 2. JDK and Jena setup
+Manually download and extract the following tools:
 -   **Java JDK (portable):**  [Java Downloads](https://www.oracle.com/java/technologies/downloads/) (x64 Compressed Archive)
 -   **Apache Jena:**  [Apache Jena Downloads](https://jena.apache.org/download/) (Apache Jena Commands)
 
-Place both in the `tools` directory as follows:
-```
-tools\
-├── jdk\              # Extracted JDK folder
-└── jena\             # Extracted Apache Jena distribution
-```
-
-No admin rights are required. The batch script will use the local copies.
+Place them in the `tools\` directory as shown above.
 
 ## License
 MIT
