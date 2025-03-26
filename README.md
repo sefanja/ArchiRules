@@ -2,14 +2,14 @@
 # ArchiRules
 Lightweight SPARQL-based model validation for [Archi](https://www.archimatetool.com/). It exports your model as RDF, runs SPARQL-based validation, and reports violations directly in the jArchi console.
 
-## Features
+## 📋 Features
 -   Validate Archi models directly from inside Archi
 -   Define rules declaratively in SPARQL
 -   Feedback directly in the jArchi console
 -   Works on Windows without admin rights
 -   Requires the [jArchi plugin](https://www.archimatetool.com/plugins/)
 
-## Typical usage
+## ▶️ Typical usage
 1.  Open your model in Archi
 2.  Run the `ArchiRules.ajs` script via jArchi
     -   Exports the model as RDF (Turtle)
@@ -17,7 +17,7 @@ Lightweight SPARQL-based model validation for [Archi](https://www.archimatetool.
     -   Reports violations in the jArchi console
 4.  Review validation results in the console
 
-## Example console output
+## 📟 Example console output
 ```
 ✔ 0 elements violate rule C1
 ⚠ 2 elements violate rule C2: Customer Support; Order Fulfilment
@@ -26,7 +26,7 @@ Lightweight SPARQL-based model validation for [Archi](https://www.archimatetool.
 
 If there are 100 or fewer violations, element names are shown. If more, only the count is displayed.
 
-## SPARQL rule example
+## 📐 SPARQL rule example
 ```sparql
 # An element may not be composed (directly or indirectly) of itself.
 
@@ -37,7 +37,7 @@ SELECT ?x WHERE {
 }
 ```
 
-## Installation (Windows)
+## 📦 Installation (Windows)
 All files should be placed in the following folder on your system:
 ```
 C:\Users\<YourName>\Downloads\ArchiRules\
@@ -76,5 +76,5 @@ Manually download and extract the following tools:
 
 Place them in the `tools\` directory as shown above.
 
-## License
+## 📄 License
 MIT
