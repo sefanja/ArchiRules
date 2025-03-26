@@ -68,7 +68,7 @@ To use the `ArchiRules.ajs` script inside Archi:
 > ⚠ **If you use a different location than the default folder**, update the first line of `ArchiRules.ajs` to match your path:
 > 
 > ```
-> const BASEFOLDER = "C:\\Users\\YourName\\CustomFolder\\ArchiRules\\";
+> const BASEPATH = "C:\\Users\\YourName\\CustomFolder\\ArchiRules\\";
 > ```
 
 ### 2. JDK and Jena setup
