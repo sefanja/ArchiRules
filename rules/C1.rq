@@ -1,6 +1,4 @@
-# Rule C1
 # Each element may have at most one parent via a composition relationship.
-# If more than one parent is found, the element is considered invalid.
 
 PREFIX archimate: <http://www.opengroup.org/xsd/archimate/3.0/#>
 
