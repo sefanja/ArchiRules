@@ -116,12 +116,11 @@ Object.entries(validationResults).forEach(([rule, data]) => {
         return uri.split("#").pop(); // extract "id-abc123"
     });
 
-    const names = ids.map(id => {
-        const el = $('#' + id).first();
-        return el ? el.name : `[${id}]`;
-    });
-
     if (count <= 100) {
+        const names = ids.map(id => {
+            const el = $('#' + id).first();
+            return el ? el.name : `[${id}]`;
+        });
         console.log(`⚠ ${count} elements violate rule ${rule}: ${names.join("; ")}`);
     } else {
         console.log(`⚠ ${count} elements violate rule ${rule}`);
