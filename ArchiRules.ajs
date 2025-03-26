@@ -106,17 +106,13 @@ Object.entries(validationResults).forEach(([rule, data]) => {
 
     if (count === 0) {
         console.log(`✔ 0 elements violate rule ${rule}`);
-        return;
-    }
-
-    const ids = bindings.map(b => {
-        // Take the first variable as 'main element'
-        const firstVar = data.head.vars[0];
-        const uri = b[firstVar].value; // e.g. "http://example.org/model#id-abc123"
-        return uri.split("#").pop(); // extract "id-abc123"
-    });
-
-    if (count <= 100) {
+    } else if (count <= 100) {
+        const ids = bindings.map(b => {
+            // Take the first variable as 'main element'
+            const firstVar = data.head.vars[0];
+            const uri = b[firstVar].value; // e.g. "http://example.org/model#id-abc123"
+            return uri.split("#").pop(); // extract "id-abc123"
+        });
         const names = ids.map(id => {
             const el = $('#' + id).first();
             return el ? el.name : `[${id}]`;
