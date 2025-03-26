@@ -46,7 +46,7 @@ C:\Users\YourName\Downloads\ArchiRules\
 Folder contents after installation:
 ```
 ArchiRules\
-├── validate.ajs     # jArchi script
+├── validate.js     # jArchi script
 ├── validate.cmd     # Batch file to run all SPARQL rules
 ├── rules\           # SPARQL rules (e.g. C1.rq, C2.rq, ...)
 ├── tools\           # (created by the user in step 2)
@@ -56,13 +56,13 @@ ArchiRules\
 ```
 
 ### 1. jArchi script installation
-To use the `validate.ajs` script inside Archi:
+To use the `validate.js` script inside Archi:
 1.  Open Archi
 2.  Go to `Scripts → Scripts Manager`, and click **New Archi Script**
 3.  Name the new script `ArchiRules`
 4.  In the script editor, paste the following line (adjust the path if needed):
 	```javascript
-      load("C:\\Users\\YourName\\Downloads\\ArchiRules\\validate.ajs");
+      load("C:\\Users\\YourName\\Downloads\\ArchiRules\\validate.js");
 5.  Save the script
 
 ### 2. JDK and Jena setup
