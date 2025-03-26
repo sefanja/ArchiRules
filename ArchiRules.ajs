@@ -1,12 +1,9 @@
-﻿const BASEPATH = Java.type("java.lang.System").getenv("USERPROFILE") + "\\Downloads\\ArchiRules\\"; // <-- change this path if necessary
-
-console.clear();
-console.show();
-
-
 //
 // Step 1. Export to RDF
 //
+
+console.clear();
+console.show();
 
 const RDF = [];
 const ns = {
@@ -54,7 +51,7 @@ $('relationship').each(r => {
 });
 
 // Output to file
-const rdfPath = BASEPATH + "output\\model.ttl";
+const rdfPath = __DIR__ + "\\output\\model.ttl";
 $.fs.writeFile(rdfPath, RDF.join('\n'), 'UTF8');
 console.log("RDF export complete:", rdfPath);
 
@@ -69,8 +66,8 @@ const BufferedReader = Java.type("java.io.BufferedReader");
 const InputStreamReader = Java.type("java.io.InputStreamReader");
 
 // Make a ProcessBuilder
-const pb = new ProcessBuilder("cmd.exe", "/c", BASEPATH + "validate.cmd");
-pb.directory(new File(BASEPATH)); // werkmap
+const pb = new ProcessBuilder("cmd.exe", "/c", __DIR__ + "\\validate.cmd");
+pb.directory(new File(__DIR__));
 
 try {
     const process = pb.start();
@@ -98,7 +95,7 @@ try {
 console.log();
 console.log("Validation result:");
 
-load(BASEPATH + "output\\validationResults.js"); // defines `validationResults`
+load(__DIR__ + "\\output\\validationResults.js"); // defines `validationResults`
 
 Object.entries(validationResults).forEach(([rule, data]) => {
     const bindings = data.results.bindings;
