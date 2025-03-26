@@ -52,6 +52,7 @@ If there are 100 or fewer violations, element names are shown. If more, only the
 
 ## SPARQL rule example
 **C2.rq**: detect composition cycles
+_An element may not be composed (directly or indirectly) of itself. In other words, the composition relationship must form a strict hierarchy without cycles._
 
 ```sparql
 PREFIX archimate: <http://www.opengroup.org/xsd/archimate/3.0/#>
