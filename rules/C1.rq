@@ -2,7 +2,7 @@
 
 PREFIX archimate: <http://www.opengroup.org/xsd/archimate/3.0/#>
 
-SELECT ?child (COUNT(?parent) AS ?parentCount)
+SELECT ?child
 WHERE {
   ?parent archimate:Composition ?child .
 }
