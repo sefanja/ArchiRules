@@ -95,28 +95,46 @@ try {
 console.log();
 console.log("Validation result:");
 
-load(__DIR__ + "\\output\\validationResults.js"); // defines `validationResults`
+function readAllText(path) {
+    const file = new java.io.File(path);
+    if (!file.exists()) {
+        throw new Error("File not found: " + path);
+    }
+    const scanner = new java.util.Scanner(file).useDelimiter("\\Z");
+    const text = scanner.hasNext() ? scanner.next() : "";
+    scanner.close();
+    return text;
+}
+
+const validationResults = JSON.parse(readAllText(__DIR__ + "\\output\\validationResults.json"));
 
 Object.entries(validationResults).forEach(([rule, data]) => {
     const bindings = data.results.bindings;
     const count = bindings.length;
 
     if (count === 0) {
-        console.log(`✔ 0 elements violate rule ${rule}`);
+        console.log(`✔ no violations of rule ${rule}`);
     } else if (count <= 100) {
-        const ids = bindings.map(b => {
-            // Take the first variable as 'main element'
-            const firstVar = data.head.vars[0];
-            const uri = b[firstVar].value; // e.g. "http://example.org/model#id-abc123"
-            return uri.split("#").pop(); // extract "id-abc123"
-        });
-        const names = ids.map(id => {
-            const el = $('#' + id).first();
-            return el ? el.name : `[${id}]`;
-        });
-        console.log(`⚠ ${count} elements violate rule ${rule}: ${names.join("; ")}`);
+		let violations = [];
+
+		for (let binding of data.results.bindings) {
+			const labelParts = data.head.vars.map(varName => {
+				const uri = binding[varName]?.value;
+				const id = uri?.split("#").pop();
+				const el = $("#" + id).first();
+				return el ? el.name : `[${id}]`;
+			});
+			violations.push(labelParts.join(" × "));
+		}
+
+		// Output summary
+		if (violations.length <= 100) {
+			console.log(`⚠ ${count} violations of rule ${rule}: ${violations.join("; ")}`);
+		} else {
+			console.log(`⚠ ${count} violations of rule ${rule}`);
+		}
     } else {
-        console.log(`⚠ ${count} elements violate rule ${rule}`);
+        console.log(`⚠ ${count} violations of rule ${rule}`);
     }
 });
 
