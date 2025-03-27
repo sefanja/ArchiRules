@@ -6,9 +6,9 @@ set JAVA_HOME=%cd%\tools\jdk
 set PATH=%JAVA_HOME%\bin;%PATH%
 
 set DATA=output\model.ttl
-set OUT=output\validationResults.js
+set OUT=output\validationResults.json
 
-echo const validationResults = { > %OUT%
+echo { > %OUT%
 set comma=
 for %%f in (rules\*.rq) do (
 	echo Running SPARQL validation for rule %%~nf...
@@ -16,6 +16,6 @@ for %%f in (rules\*.rq) do (
 	call %JENA_HOME%\bat\arq.bat --data %DATA% --query %%f --results=JSON >> %OUT%
 	set comma=,
 )
-echo }; >> %OUT%
+echo } >> %OUT%
 
 echo SPARQL validation complete: %cd%\%OUT%
